@@ -1,0 +1,18 @@
+{
+  "name": "argentina-rp-autoroles",
+  "version": "1.0.0",
+  "description": "Bot de Discord para Argentina RP con sistema de auto roles",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "TuNombre",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.0"
+  }
+}
