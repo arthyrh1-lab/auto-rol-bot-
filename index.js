@@ -14,12 +14,12 @@ const client = new Client({
 
 // IDs de roles y canal (modificalos según tu servidor)
 const ROLES = {
-  policia: "ID_DEL_ROL_POLICIA",
-  bombero: "ID_DEL_ROL_BOMBERO",
-  ciudadano: "ID_DEL_ROL_CIUDADANO"
+  policia: "1449514142477193320",
+  bombero: "1449514160508506233",
+  ciudadano: "1449514174836244704"
 };
 
-const CANAL_AUTO_ROLES = "ID_DEL_CANAL"; // canal donde se publicará el mensaje
+const CANAL_AUTO_ROLES = "1449646510089179290"; // canal donde se publicará el mensaje
 
 client.once("ready", async () => {
   console.log(`🤖 Bot conectado como ${client.user.tag}`);
