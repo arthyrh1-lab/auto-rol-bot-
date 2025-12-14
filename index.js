@@ -15,11 +15,11 @@ const client = new Client({
 
 // Variables de entorno (debes configurarlas en Render o GitHub)
 const TOKEN = process.env.TOKEN;
-const CANAL_AUTO_ROLES = process.env.CANAL_AUTO_ROLES; // ID del canal de auto roles
+const CANAL_AUTO_ROLES = process.env.1449646510089179290; // ID del canal de auto roles
 const ROLES = {
-  policia: process.env.ROL_POLICIA, // ID del rol Policía
-  bombero: process.env.ROL_BOMBERO, // ID del rol Bombero
-  ciudadano: process.env.ROL_CIUDADANO // ID del rol Ciudadano
+  policia: process.env.1449514142477193320, // ID del rol Policía
+  bombero: process.env.1449514160508506233, // ID del rol Bombero
+  ciudadano: process.env.1449514174836244704 // ID del rol Ciudadano
 };
 
 // Evento de "ready" para cuando el bot esté activo
