@@ -9,22 +9,22 @@ import {
 } from "discord.js";
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]
+  intents: [GatewayIntentBits.Guilds] // ✅ Solo intents permitidos
 });
 
-// IDs de roles y canal (modificalos según tu servidor)
+// Variables de entorno
+const TOKEN = process.env.TOKEN;
+const CANAL_AUTO_ROLES = process.env.CANAL_AUTO_ROLES; // Canal donde se publicará el mensaje
 const ROLES = {
-  policia: "1449514142477193320",
-  bombero: "1449514160508506233",
-  ciudadano: "1449514174836244704"
+  policia: process.env.ROL_POLICIA,
+  bombero: process.env.ROL_BOMBERO,
+  ciudadano: process.env.ROL_CIUDADANO
 };
-
-const CANAL_AUTO_ROLES = "1449646510089179290"; // canal donde se publicará el mensaje
 
 client.once("ready", async () => {
   console.log(`🤖 Bot conectado como ${client.user.tag}`);
 
-  // Publicar mensaje de auto roles al iniciar (solo si no está ya)
+  // Publicar mensaje de auto roles
   const channel = await client.channels.fetch(CANAL_AUTO_ROLES);
   if (!channel) return console.log("❌ Canal no encontrado.");
 
@@ -45,7 +45,7 @@ client.once("ready", async () => {
     new ButtonBuilder().setCustomId("rol_ciudadano").setLabel("Ciudadano").setStyle(ButtonStyle.Success)
   );
 
-  // Enviar el mensaje solo si no hay mensaje previo (evita duplicados)
+  // Evitar duplicar mensaje
   const messages = await channel.messages.fetch({ limit: 10 });
   const existe = messages.find(msg => msg.author.id === client.user.id && msg.embeds.length > 0);
   if (!existe) await channel.send({ embeds: [embed], components: [row] });
@@ -58,18 +58,17 @@ client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isButton()) return;
 
   const member = interaction.member;
-
   let roleId;
+
   if (interaction.customId === "rol_policia") roleId = ROLES.policia;
   if (interaction.customId === "rol_bombero") roleId = ROLES.bombero;
   if (interaction.customId === "rol_ciudadano") roleId = ROLES.ciudadano;
 
   if (!roleId) return interaction.reply({ content: "❌ Rol no encontrado.", ephemeral: true });
 
-  // Remover los otros roles
+  // Remover otros roles y agregar seleccionado
   const rolesEliminar = Object.values(ROLES).filter(r => r !== roleId);
   await member.roles.remove(rolesEliminar).catch(() => {});
-  // Agregar el rol seleccionado
   await member.roles.add(roleId).catch(() => {});
 
   return interaction.reply({
@@ -78,4 +77,4 @@ client.on(Events.InteractionCreate, async interaction => {
   });
 });
 
-client.login(process.env.TOKEN);
+client.login(TOKEN);
